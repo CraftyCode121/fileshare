@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileShare — {{ username }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">📁 FileShare</div>
+        <div class="server-info">
+            <span>{{ username }}'s Laptop</span>
+            <span>{{ server_ip }}:8080</span>
+        </div>
+    </header>
+
+    <div class="progress-bar" id="progress-bar"></div>
+
+    <div class="breadcrumb" id="breadcrumb">
+        <span class="crumb" onclick="loadFiles('')">Home</span>
+    </div>
+
+    <div class="file-list" id="file-list">
+        <div class="loading">Loading...</div>
+    </div>
+
+    <div class="upload-bar">
+        <label class="upload-label" for="file-input" id="upload-label">
+            📤 Tap to select file
+        </label>
+        <input type="file" id="file-input" onchange="fileSelected()">
+        <button class="upload-btn" onclick="uploadFile()">Send</button>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+
+</body>
+</html>

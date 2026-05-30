@@ -1,0 +1,451 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Syne:wght@600;700;800&display=swap');
+
+:root {
+    /* Nerdy dark comic-book color palette */
+    --bg:        #1e1e2e;
+    --surface:   #2a2b3c;
+    --surface2:  #35374b;
+    --border:    #000000; /* Thick black lines for cartoon feel */
+    --accent:    #a6e22e; /* Hacker neon green */
+    --accent2:   #66d9ef; /* Cyan */
+    --text:      #ffffff;
+    --muted:     #a5abc2;
+    --danger:    #ff4747;
+    --success:   #47ff8a;
+    --folder:    #f1fa8c; /* Bright cartoon yellow */
+    
+    /* Signature cartoon shadow */
+    --hard-shadow: 4px 4px 0px var(--border);
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 110px; /* Room for upload bar */
+    overflow-x: hidden;
+}
+
+/* Nerdy graph-paper/polka-dot background */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(var(--surface2) 2px, transparent 2px);
+    background-size: 24px 24px;
+    z-index: -1;
+}
+
+/* ── HEADER ── */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 3px solid var(--border);
+    padding: 12px 24px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    text-shadow: 2px 2px 0 var(--border);
+}
+
+.logo-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--danger);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    animation: bounce 1s cubic-bezier(0.28, 0.84, 0.42, 1) infinite alternate;
+}
+
+@keyframes bounce {
+    0%   { transform: translateY(0) scale(1.1); }
+    100% { transform: translateY(-6px) scale(0.9); }
+}
+
+.server-info {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text);
+    text-align: right;
+    line-height: 1.4;
+    background: var(--border);
+    padding: 6px 10px;
+    border-radius: 8px;
+    transform: rotate(2deg);
+}
+
+.server-info .ip {
+    color: var(--accent2);
+    font-weight: 700;
+}
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+    display: none;
+    padding: 12px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--bg);
+    background: var(--accent);
+    border-bottom: 3px solid var(--border);
+    text-transform: uppercase;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+    padding: 20px 24px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.crumb {
+    color: var(--text);
+    cursor: pointer;
+    background: var(--surface2);
+    padding: 6px 12px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 2px 2px 0 var(--border);
+    transition: all 0.1s ease;
+}
+
+.crumb:hover {
+    background: var(--accent2);
+    color: var(--border);
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--border);
+}
+
+.crumb:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0 var(--border);
+}
+
+.separator { 
+    color: var(--accent); 
+    font-weight: 800;
+}
+
+/* ── FILE LIST ── */
+.file-list {
+    padding: 10px 20px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    margin: 12px 0;
+    background: var(--surface);
+    border: 3px solid var(--border);
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: var(--hard-shadow);
+    transition: all 0.15s ease;
+}
+
+.file-item:hover {
+    background: var(--surface2);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--accent);
+}
+
+.file-item:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--accent);
+}
+
+.file-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    overflow: hidden;
+    flex: 1;
+}
+
+.file-icon {
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.4rem;
+    box-shadow: 2px 2px 0 var(--border);
+    background: var(--surface2);
+}
+
+.file-icon.folder { background: var(--folder); color: var(--border); }
+.file-icon.image  { background: var(--accent2); color: var(--border); }
+.file-icon.video  { background: #bd93f9; color: var(--border); }
+.file-icon.audio  { background: #ff79c6; color: var(--border); }
+.file-icon.code   { background: var(--accent); color: var(--border); }
+.file-icon.archive{ background: #ffb86c; color: var(--border); }
+.file-icon.doc    { background: #8be9fd; color: var(--border); }
+
+.file-info { overflow: hidden; }
+
+.file-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.file-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    margin-left: 12px;
+}
+
+.chevron {
+    color: var(--accent);
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+/* ── DOWNLOAD BUTTON ── */
+.download-btn {
+    background: var(--surface);
+    color: var(--text);
+    border: 2px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--border);
+    transition: all 0.1s;
+}
+
+.download-btn:hover {
+    background: var(--accent);
+    color: var(--border);
+}
+
+.download-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 var(--border);
+}
+
+/* ── UPLOAD BAR ── */
+.upload-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: var(--bg);
+    border-top: 3px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 -4px 0 rgba(0,0,0,0.3);
+}
+
+input[type="file"] { display: none; }
+
+.upload-label {
+    flex: 1;
+    background: var(--surface);
+    border: 2px dashed var(--muted);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    transition: all 0.1s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.upload-label:hover {
+    background: var(--surface2);
+    border-style: solid;
+    border-color: var(--accent2);
+    color: var(--accent2);
+}
+
+.upload-btn {
+    background: var(--accent);
+    color: var(--border);
+    border: 3px solid var(--border);
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--border);
+    transition: all 0.1s;
+}
+
+.upload-btn:active { 
+    transform: translate(3px, 3px); 
+    box-shadow: 0 0 0 var(--border);
+}
+
+/* ── STATES & ANIMATIONS ── */
+.empty-state, .loading {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 0 var(--border);
+}
+
+.file-item {
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+
+/* 🇺🇸 ── MOBILE OPTIMIZATION MEDIA QUERY ── */
+@media (max-width: 600px) {
+    body {
+        /* Gives extra space at bottom so stacked upload bar doesn't block lists */
+        padding-bottom: 160px; 
+    }
+
+    header {
+        padding: 0 16px;
+        height: 64px;
+    }
+
+    .logo {
+        font-size: 1.15rem;
+    }
+
+    /* Keep server info clean and small on phone screens */
+    .server-info {
+        font-size: 0.65rem;
+        padding: 4px 8px;
+        transform: none; /* Flattening tilt prevents text clashing on tiny viewports */
+    }
+
+    .breadcrumb {
+        padding: 12px 16px 4px;
+        font-size: 0.75rem;
+    }
+
+    .crumb {
+        padding: 4px 8px;
+    }
+
+    .file-list {
+        padding: 4px 12px;
+    }
+
+    .file-item {
+        padding: 12px;
+        margin: 8px 0;
+        border-width: 2px; /* Marginally thinner borders so items look clean on small glass */
+    }
+
+    .file-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1.15rem;
+    }
+
+    .file-name {
+        font-size: 0.95rem;
+    }
+
+    .file-right {
+        gap: 6px;
+        margin-left: 6px;
+    }
+
+    .download-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    /* Dropping the arrow icon completely on mobile preserves precious horizontal real estate */
+    .chevron {
+        display: none; 
+    }
+
+    /* Stacking layout makes uploading intuitive and thumb-friendly on a device */
+    .upload-bar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px 16px;
+        gap: 8px;
+    }
+
+    .upload-label {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+
+    .upload-btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.9rem;
+        text-align: center;
+        box-shadow: 0px 4px 0 var(--border); /* Custom block shadow direction for full-width action items */
+    }
+
+    .upload-btn:active {
+        transform: translateY(4px);
+        box-shadow: 0 0 0 var(--border);
+    }
+}
