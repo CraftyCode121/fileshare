@@ -26,6 +26,7 @@ A fast, local file transfer system between your laptop and any device on the sam
 
 ## Project Structure
 
+```text
 share/
 ├── server.py           # FastAPI app — all endpoints
 ├── templates/
@@ -36,6 +37,7 @@ share/
 │   └── js/
 │       └── app.js      # Frontend logic
 └── requirements.txt
+```
 
 ---
 
